@@ -140,7 +140,7 @@ export function TableConfiguratorApp() {
       if (screenshot?.base64) {
         setPreviewDataUrls((prev) => ({ ...prev, [savedDesign.id]: screenshot.base64 }));
       }
-      setFeedback("Design saved to Supabase successfully.");
+      setFeedback("Design saved successfully.");
     } catch (error) {
       setFeedback(error instanceof Error ? error.message : "Unable to save design.");
     } finally {
