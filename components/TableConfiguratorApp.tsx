@@ -163,6 +163,17 @@ export function TableConfiguratorApp() {
     setFeedback("Saved design loaded into the viewer.");
   }
 
+  function getPreviewUrl(design: DesignRecord) {
+    return (
+      previewDataUrls[design.id] ??
+      (design.preview_image?.startsWith("http")
+        ? design.preview_image
+        : design.preview_image?.startsWith("data:")
+        ? design.preview_image
+        : null)
+    );
+  }
+
   return (
     <main className="flex h-screen flex-col overflow-hidden bg-neutral-50">
       <div className="mx-auto flex w-full max-w-[1600px] flex-1 flex-col gap-4 overflow-hidden p-4 md:p-5">
@@ -203,13 +214,7 @@ export function TableConfiguratorApp() {
               ) : (
                 <div className="flex gap-2 overflow-x-auto pb-0.5">
                   {savedDesigns.map((design) => {
-                    const previewUrl =
-                      previewDataUrls[design.id] ??
-                      (design.preview_image?.startsWith("http")
-                        ? design.preview_image
-                        : design.preview_image?.startsWith("data:")
-                        ? design.preview_image
-                        : null);
+                    const previewUrl = getPreviewUrl(design);
                     return (
                       <button
                         key={design.id}
@@ -269,6 +274,8 @@ export function TableConfiguratorApp() {
 
             <SubmitRequestForm
               userId={userId}
+              designs={savedDesigns}
+              getPreviewUrl={getPreviewUrl}
               onSubmitted={setFeedback}
             />
           </aside>

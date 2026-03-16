@@ -15,6 +15,7 @@ const submitRequestSchema = z.object({
   email: z.string().email(),
   notes: z.string().trim().max(500).default(""),
   user_id: z.string().uuid().optional(),
+  selected_design_ids: z.array(z.string().uuid()).optional().default([]),
   configuration: z
     .object({
       user_id: z.string().uuid()
@@ -60,7 +61,17 @@ export async function submitRequest(input: unknown) {
     throw new Error("No saved designs were found for this user.");
   }
 
-  const previewPaths = savedDesigns
+  const selectedIds = payload.selected_design_ids ?? [];
+  const designsForRequest =
+    selectedIds.length > 0
+      ? savedDesigns.filter((design) => selectedIds.includes(design.id))
+      : savedDesigns;
+
+  if (designsForRequest.length === 0) {
+    throw new Error("No saved designs were selected for this request.");
+  }
+
+  const previewPaths = designsForRequest
     .map((design) => design.preview_image)
     .filter((value): value is string => Boolean(value));
 
@@ -88,7 +99,7 @@ export async function submitRequest(input: unknown) {
       email: payload.email,
       notes: payload.notes
     },
-    designs: savedDesigns.map((design) => ({
+    designs: designsForRequest.map((design) => ({
       ...design,
       design_name: `${design.product_type}-${design.id.slice(0, 8)}`,
       preview_image_url: design.preview_image
@@ -105,8 +116,8 @@ export async function submitRequest(input: unknown) {
       customer_phone: payload.phone,
       customer_email: payload.email,
       notes: payload.notes || null,
-      design_count: savedDesigns.length,
-      design_ids: savedDesigns.map((design) => design.id),
+      design_count: designsForRequest.length,
+      design_ids: designsForRequest.map((design) => design.id),
       created_at: new Date().toISOString()
     })
     .select("*")
