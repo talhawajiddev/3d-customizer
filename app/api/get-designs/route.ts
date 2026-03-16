@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { getDesignsByUser } from "@/api/get-designs";
+import { getDesignsByUser } from "@/server/get-designs";
 
 export async function GET(request: NextRequest) {
   try {

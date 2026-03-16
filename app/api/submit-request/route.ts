@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
 
-import { submitRequest } from "@/api/submit-request";
+import { submitRequest } from "@/server/submit-request";
 
 export async function POST(request: NextRequest) {
   try {
