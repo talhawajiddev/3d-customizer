@@ -175,14 +175,14 @@ function SceneModel({
   const resolvedLegModel = resolveLegModelUrl(legStyle, legModel);
   const tableScene = useMemo(() => scene.clone(true), [scene]);
   const tableScale = useMemo(() => getTableScale(dimensions), [dimensions]);
+  const legGltf = useGLTF(resolvedLegModel ?? modelUrl);
   const legScene = useMemo(() => {
     if (!resolvedLegModel) {
       return null;
     }
 
-    const legGltf = useGLTF(resolvedLegModel);
     return legGltf.scene.clone(true);
-  }, [resolvedLegModel]);
+  }, [legGltf.scene, resolvedLegModel]);
 
   useEffect(() => {
     updateMeshShadowState(tableScene);
