@@ -179,7 +179,7 @@ export function TableConfiguratorApp() {
       <div className="mx-auto flex w-full max-w-[1600px] flex-1 flex-col gap-4 overflow-hidden p-4 md:p-5">
         <header className="flex shrink-0 items-center justify-between gap-4 border-b border-neutral-200/80 bg-white/80 px-1 pb-4 backdrop-blur-sm">
           <h1 className="text-lg font-medium tracking-tight text-neutral-800 md:text-xl">
-            Table Configurator
+            JC Custom Woodworks
           </h1>
           <span className="font-mono text-xs text-neutral-400">
             {userId ?? "…"}
