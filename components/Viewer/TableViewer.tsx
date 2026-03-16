@@ -281,7 +281,7 @@ export const TableViewer = forwardRef<TableViewerHandle, TableViewerProps>(
     );
 
     return (
-      <div className="relative h-full min-h-[240px] w-full overflow-hidden rounded-2xl bg-neutral-900">
+      <div className="relative h-full min-h-[240px] w-full overflow-hidden rounded-2xl bg-transparent">
         <Canvas
           className="h-full w-full"
           dpr={dpr}
@@ -297,11 +297,11 @@ export const TableViewer = forwardRef<TableViewerHandle, TableViewerProps>(
           }}
         >
           <ScreenshotBridge onReady={handleCaptureReady} />
-          <color attach="background" args={["#0b1120"]} />
-          <ambientLight intensity={0.5} />
+          <color attach="background" args={["#f7f7f7"]} />
+          <ambientLight intensity={0.6} />
           <directionalLight
             castShadow
-            intensity={1.4}
+            intensity={1.2}
             position={[6, 8, 5]}
             shadow-mapSize-width={shadowMapSize}
             shadow-mapSize-height={shadowMapSize}
@@ -324,13 +324,18 @@ export const TableViewer = forwardRef<TableViewerHandle, TableViewerProps>(
             position={[0, -0.65, 0]}
           >
             <planeGeometry args={[20, 20]} />
-            <meshStandardMaterial color="#0f172a" roughness={1} />
+            <meshStandardMaterial
+              color="#ffffff"
+              roughness={0.95}
+              metalness={0}
+            />
           </mesh>
           <OrbitControls
             makeDefault
             enablePan={false}
             enableDamping
             dampingFactor={0.08}
+            enableZoom
             minDistance={1.8}
             maxDistance={8}
             maxPolarAngle={Math.PI / 2.05}

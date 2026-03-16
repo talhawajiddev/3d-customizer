@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import type { DesignRecord } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils/cn";
 
@@ -77,9 +79,11 @@ export function SavedDesignsList({
               >
                 <div className="aspect-[16/9] w-full overflow-hidden border-b border-white/10 bg-slate-900">
                   {previewImageUrl ? (
-                    <img
+                    <Image
                       src={previewImageUrl}
                       alt={`${formatProductLabel(design.product_type)} preview`}
+                      width={320}
+                      height={180}
                       className="h-full w-full object-cover"
                     />
                   ) : (

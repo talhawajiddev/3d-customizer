@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo, useState } from "react";
 
 import type { DesignRecord } from "@/lib/supabase/client";
@@ -163,9 +164,11 @@ export function SubmitRequestForm({
                     className="group relative h-10 w-10 overflow-hidden rounded-md border border-neutral-200 bg-white"
                   >
                     {previewUrl ? (
-                      <img
+                      <Image
                         src={previewUrl}
                         alt=""
+                        width={40}
+                        height={40}
                         className="h-full w-full object-cover"
                       />
                     ) : (
@@ -262,9 +265,11 @@ export function SubmitRequestForm({
                   >
                     <div className="aspect-[4/3] w-full bg-neutral-900">
                       {previewUrl ? (
-                        <img
+                        <Image
                           src={previewUrl}
                           alt=""
+                          width={320}
+                          height={240}
                           className="h-full w-full object-cover"
                         />
                       ) : (
